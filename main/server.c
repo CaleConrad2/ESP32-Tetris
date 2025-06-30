@@ -68,9 +68,9 @@ static esp_err_t ws_handler(httpd_req_t *req) {
     return ESP_OK;
   }
 
-  /* drain and ignore incoming frames */
+  // websocket frame
   httpd_ws_frame_t frame = {.type = HTTPD_WS_TYPE_TEXT};
-  esp_err_t ret = httpd_ws_recv_frame(req, &frame, 0); /* length only */
+  esp_err_t ret = httpd_ws_recv_frame(req, &frame, 0); 
   if (ret != ESP_OK)
     return ret;
   frame.payload = malloc(frame.len + 1);
@@ -81,7 +81,7 @@ static esp_err_t ws_handler(httpd_req_t *req) {
 
 esp_err_t ws_send_char(char c) {
   if (s_ws_client_fd < 0)
-    return ESP_ERR_INVALID_STATE; /* no client */
+    return ESP_ERR_INVALID_STATE;
 
   httpd_ws_frame_t frame = {
       .type = HTTPD_WS_TYPE_TEXT,
