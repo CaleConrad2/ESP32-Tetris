@@ -1,32 +1,45 @@
-# _Sample project_
+# ESP32 Button-Controlled Tetris Game
 
-(See the README.md file in the upper level 'examples' directory for more information about examples.)
+This project implements a physical game controller using an ESP32 and five pushbuttons to play a browser-based game of Tetris.
 
-This is the simplest buildable example. The example is used by command `idf.py create-project`
-that copies the project to user specified path and set it's name. For more information follow the [docs page](https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/build-system.html#start-a-new-project)
+The ESP32 reads button input using GPIO interrupts, debounces the signals with FreeRTOS timers, and sends real-time events over a WebSocket connection to a local HTML5 Tetris game hosted from the same board via SPIFFS.
 
+---
 
+## Demo
 
-## How to use example
-We encourage the users to use the example as a template for the new projects.
-A recommended way is to follow the instructions on a [docs page](https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/build-system.html#start-a-new-project).
+https://www.youtube.com/watch?v=28kBbpH67Zk
 
-## Example folder contents
+---
 
-The project **sample_project** contains one source file in C language [main.c](main/main.c). The file is located in folder [main](main).
+## Features
 
-ESP-IDF projects are built using CMake. The project build configuration is contained in `CMakeLists.txt`
-files that provide set of directives and instructions describing the project's source files and targets
-(executable, library, or both). 
+- ESP-IDF implementation (no Arduino dependencies)
+- Interrupt-driven GPIO input with debounce logic
+- FreeRTOS-based timers and task queues for responsive control
+- WebSocket server hosted on ESP32 for inputting to browser
+- Tetris game (HTML/CSS/JS) served from onboard SPIFFS
+- Live gameplay using only embedded hardware and browser
 
-Below is short explanation of remaining files in the project folder.
+---
 
-```
-├── CMakeLists.txt
-├── main
-│   ├── CMakeLists.txt
-│   └── main.c
-└── README.md                  This is the file you are currently reading
-```
-Additionally, the sample project contains Makefile and component.mk files, used for the legacy Make based build system. 
-They are not used or needed when building with CMake and idf.py.
+## What I Learned
+
+- How to implement GPIO interrupts and debounce using FreeRTOS timers
+- How to integrate ESP32 with WebSockets to communicate with a frontend
+- Hosting web applications from SPIFFS on an embedded system
+- Designing an input system with event queues and interrupts
+
+---
+
+The Tetris game interface used in this project is adapted from the open-source project [JS Tetris](https://github.com/cztomczak/jstetris) by Czarek Tomczak, licensed under the BSD 3-Clause License.
+A copy of the original license is included in [`spiffs/src/LICENSE.txt`](spiffs/src/LICENSE.txt).
+
+You can view the original project here:  
+https://github.com/cztomczak/jstetris
+
+## Author
+
+Cale Conrad
+
+Electrical Engineering – University of Nebraska-Lincoln
